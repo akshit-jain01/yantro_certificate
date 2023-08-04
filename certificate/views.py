@@ -79,8 +79,8 @@ def track(request, id, slug):
 		i=0
 
 		data = {
-        	"client_id":"YOUR_GOOGLE_API_CLIENT_ID",
-        	"client_secret":"YOUR_CLIENT_SECRET",
+        	"client_id":"636461123928-7cun8ntakiope94nlk8hsina5guhq9of.apps.googleusercontent.com",
+        	"client_secret":"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",
         	"refresh_token": "GOOGLE DRIVE REFRESH TOKEN",
         	'grant_type': 'refresh_token'
             }
@@ -121,21 +121,21 @@ def track(request, id, slug):
 			prs.save(s_name+".pptx")
 			f_id = ppt2pdf(s_name+".pptx",s_name, token)
 			r = requests.get(f"https://docs.google.com/presentation/d/{f_id}/export/pdf", allow_redirects=True)
-			open(s_name+'.pdf', 'wb').write(r.content)
+			open('Certificate.pdf', 'wb').write(r.content)
 
 			try:
 				mail = EmailMessage(subject,
 					f"Hello, {s_name} \n{mess}",
 					settings.EMAIL_HOST_USER,
 					[df.loc[i,event.email_column]])
-				mail.attach_file(s_name+'.pdf')
+				mail.attach_file('Certificate.pdf')
 				mail.send()
 				Participant(event=event, email=df.loc[i,event.email_column], status=True).save()
-				os.remove(s_name+'.pdf')
+				os.remove('Certificate.pdf')
 				os.remove(s_name+".pptx")
 			except:
 				Participant(event=event, email=df.loc[i,event.email_column], status=False).save()
-				os.remove(s_name+'.pdf')
+				os.remove('Certificate.pdf')
 				os.remove(s_name+".pptx")
 			i=i+1
 

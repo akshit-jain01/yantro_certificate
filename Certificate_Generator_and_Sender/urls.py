@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from certificate.views import index
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
     path('', index, name='home'),
     path('certificate/', include('certificate.urls')),

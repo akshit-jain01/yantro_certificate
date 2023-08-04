@@ -1,8 +1,10 @@
 from pathlib import Path
+from decouple import config
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-ma(=ratc*2!_!saf0c3#tgmqafesple67&lh&u&a5$)h$vy!it'
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = True
 
@@ -10,15 +12,17 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
+    # 'django.contrib.sites',
+    'user.apps.UserConfig',
     'certificate.apps.CertificateConfig',
-    'user.apps.UserConfig'
+    'crispy_forms',
+    
 ]
 
 MIDDLEWARE = [
@@ -60,6 +64,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'railway',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'MW2dKFoe8yD5YOVa2WLP',
+    #     'HOST': 'containers-us-west-64.railway.app',
+    #     'PORT': '5616',
+    # }
 }
 
 
@@ -116,9 +128,9 @@ LOGIN_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'YOUR EMAIL'
-EMAIL_HOST_PASSWORD = 'YOUR PASSWORD'
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
