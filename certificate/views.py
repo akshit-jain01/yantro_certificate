@@ -32,12 +32,12 @@ def create(request):
 
 	return render(request, 'certificate/create_event.html')
 
-@login_required
-def delete_event(request, id, slug):
-	event = Event.objects.filter(slug=slug, id=id).first()
-	if event.user == request.user:
-	    event.delete()
-	return redirect('view_certificate_status')
+# @login_required
+# def delete_event(request, id, slug):
+# 	event = Event.objects.filter(slug=slug, id=id).first()
+# 	if event.user == request.user:
+# 	    event.delete()
+# 	return redirect('view_certificate_status')
 
 @login_required
 def track(request, id, slug):
